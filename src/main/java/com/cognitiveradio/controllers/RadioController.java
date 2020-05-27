@@ -1,6 +1,7 @@
 package com.cognitiveradio.controllers;
 
 import com.cognitiveradio.entities.Information;
+import com.cognitiveradio.repositories.InformationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,13 +15,25 @@ public class RadioController {
     @Autowired
     RadioService radioService;
 
-    @RequestMapping(value = "/getInformation")
-    public String getInformation() {
-        List<Information> information = radioService.getInformation();
-        //Gson gson = new Gson();
+    @Autowired
+    InformationRepository informationRepository;
 
-        //return gson.toJson(peoples);
-        return "yes";
+    @RequestMapping(value = "/getInformation")
+    public List<Information> getInformation() {
+        System.out.println("Dostalem zapytanie na getInformation");
+        List<Information> information = radioService.getInformation();
+        System.out.println("Information size:" + information.size());
+        for(Information a : information)
+        {
+            System.out.println(0);
+            System.out.println(a.toString());
+        }
+        //List <Information> information = informationRepository.findAll();
+        Gson gson = new Gson();
+
+        //return gson.toJson(information);
+        return informationRepository.findAll();
+        //return radioService.getInformation();
     }
 
 }

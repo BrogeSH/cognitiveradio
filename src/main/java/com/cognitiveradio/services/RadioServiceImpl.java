@@ -15,6 +15,8 @@ public class RadioServiceImpl implements RadioService {
 
     @Override
     public List<Information> getInformation() {
+            System.out.println("Dostalem zapytane");
+
             return informationRepository.findAll();
     }
 }
